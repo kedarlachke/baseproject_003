@@ -23,4 +23,4 @@ function SocialMediaLogin(props: any) {
   )
 }
 
-export default SocialMediaLogin
+export const M_SocialMediaLogin = React.memo(SocialMediaLogin)

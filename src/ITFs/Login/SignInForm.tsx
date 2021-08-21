@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import SocialMediaLogin from './SocialMediaLogin'
+import {M_SocialMediaLogin} from './SocialMediaLogin'
 const initobj = {
   username: '',
   password: '',
@@ -11,7 +11,7 @@ export function SignInForm() {
     let newuser: any = { ...user }
     newuser[e.target.name] = e.target.value
     setUser(newuser)
-    console.log(newuser)
+    //console.log(newuser)
   }
   return (
     <div className="form sign-in-form">
@@ -39,7 +39,7 @@ export function SignInForm() {
       </div>
       <input type="button" value="Login" className="btn solid" />
 
-      <SocialMediaLogin label="Login" />
+      <M_SocialMediaLogin label="Login" />
     </div>
   )
 }

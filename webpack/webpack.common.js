@@ -5,7 +5,7 @@ const isDevelopment = process.env.NODE_ENV !== 'prod';
 module.exports = {
   entry: path.resolve(__dirname, '..', './src/index.tsx'),
   resolve: {
-    extensions: ['.tsx', '.ts', '.js'],
+    extensions: ['.tsx', '.ts', '.js','.svg'],
     alias : {
       '@material-ui/core' : '@material-ui/core/es'
     }
