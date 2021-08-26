@@ -19,7 +19,7 @@ export function SignUpForm() {
     console.log(newuser)
   }
 
-  const M_updateUser = useCallback(updateUser, [])
+  const M_updateUser = useCallback((e)=>updateUser(e), [])
 
 
   async function handleSubmit(){
@@ -57,10 +57,10 @@ export function SignUpForm() {
   return (
     <div className="form sign-up-form">
       <h2 className="title">Sign Up</h2>
-     <M_LeftIconRoundInput  modifydoc={updateUser} iconClass="fas fa-user" name="username"  value={user.username} placeholder="Username"/>
-     <M_LeftIconRoundInput  modifydoc={updateUser} iconClass="fas fa-phone" name="mobile"  value={user.mobile} placeholder="Mobile No"/>
-     <M_LeftIconRoundInput  modifydoc={updateUser} iconClass="fas fa-envelope" name="email"  value={user.email} placeholder="Email"/>
-     <M_LeftIconRoundInput  modifydoc={updateUser} iconClass="fas fa-lock" name="password"  value={user.password} placeholder="Password"/>
+     <M_LeftIconRoundInput  modifydoc={M_updateUser} iconClass="fas fa-user" name="username"  value={user.username} placeholder="Username"/>
+     <M_LeftIconRoundInput  modifydoc={M_updateUser} iconClass="fas fa-phone" name="mobile"  value={user.mobile} placeholder="Mobile No"/>
+     <M_LeftIconRoundInput  modifydoc={M_updateUser} iconClass="fas fa-envelope" name="email"  value={user.email} placeholder="Email"/>
+     <M_LeftIconRoundInput  modifydoc={M_updateUser} iconClass="fas fa-lock" name="password"  value={user.password} placeholder="Password"/>
       {/* <div className="input-field">
         <i className="fas fa-user"></i>
         <input
