@@ -1,9 +1,9 @@
 import React from 'react'
-import './customer.css'
+//import './customer.css'
 export default function customer() {
   return (
     <div className="form-body">
-      <div className="container">
+      {/* <div className="container">
         <div className="title">Registration</div>
 
         <div className="user-details">
@@ -52,7 +52,7 @@ export default function customer() {
         <div className="button">
           <input type="button" value="Register" />
         </div>
-      </div>
+      </div> */}
     </div>
   )
 }

@@ -4,6 +4,10 @@ import register from './img/register.svg'
 import log from './img/log.svg'
 import { M_SignInForm } from './SignInForm'
 import { M_SignUpForm } from './SignUpForm'
+import {connect} from 'react-redux' 
+import Dashboard from '../Dashboard/Dashboard'
+import { userLoggedIn } from '../Redux/ActionCreators'
+
 function Login(props: any) {
   const [form, setForm] = useState('signin')
   function setSignupForm() {
@@ -12,13 +16,20 @@ function Login(props: any) {
   function setSigninForm() {
     setForm('signin')
   }
+if(sessionStorage.getItem('jwtToken') !== undefined || sessionStorage.getItem('jwtToken') !== null ){
+props.checkuserLogggedIn()
+}
 
+if(props.loginSuccess){
+  return (<Dashboard/>)
+}else
   return (
-    <div className={form === 'signin' ? 'container' : 'container sign-up-mode'}>
+    <div className={form === 'signin' ? 'login-container' : 'login-container sign-up-mode'}>
       <div className="form-container">
         <div className="signin-signup">
           <M_SignInForm />
           <M_SignUpForm />
+          
         </div>
       </div>
       <div className="panels-container">
@@ -62,4 +73,14 @@ function Login(props: any) {
   )
 }
 
-export default Login
+const mapStateToProps = (state:any)=>{
+  return ({
+    loginSuccess:state.loginSuccess
+  })
+}
+const mapdispatcherToProp=(dispatch:any)=>{
+  return {
+    checkuserLogggedIn :()=> dispatch((userLoggedIn()))
+  }
+}
+export default React.memo(connect(mapStateToProps,mapdispatcherToProp)(Login))

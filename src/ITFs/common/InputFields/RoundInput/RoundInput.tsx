@@ -22,7 +22,7 @@ export function LeftIconRoundInput_backup(props:abc) {
 const {modifydoc,currdoc,section,iconClass,cal,placeholder,name} = props
 
     return (
-        <div className="input-field">
+        <div className="round-input-field">
         <i className={iconClass}></i>
         <input
           type="text"
@@ -45,10 +45,11 @@ interface IRoundInput{
   value:any;
 }
 export function LeftIconRoundInput(props:IRoundInput) {
+  console.log('in round input')
   const {modifydoc,iconClass,placeholder,name,value} = props
   
       return (
-          <div className="input-field">
+          <div className="round-input-field">
           <i className={iconClass}></i>
           <input
             type="text"

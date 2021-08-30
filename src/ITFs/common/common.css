@@ -11,7 +11,7 @@
   position: relative;
 }
 
-.container .title::before {
+/* .container .title::before {
   content: '';
   position: absolute;
   height: 3px;
@@ -19,7 +19,7 @@
   background: linear-gradient(135deg, #71b7e6, #9b59b6);
   left: 0;
   bottom: 0;
-}
+} */
 
 .grid {
   display: flex;

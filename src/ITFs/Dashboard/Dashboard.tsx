@@ -6,7 +6,7 @@ import Customer from '../Customers/customer'
 import Projects from '../Projects/Projects'
 import Header from './Header/Header'
 import IndicatorCards from './Indicators/IndicatorCards'
-import SideBar from './Menu/SideBar'
+import {SideBar} from './Menu/SideBar'
 import { Input } from '../common/InputFields/Input/Input'
 import { Select } from '../common/InputFields/Select/Select'
 import Inventery from '../Inventory/Inventery'
@@ -42,9 +42,8 @@ function displaySelectedComponent(displayItem: string) {
             <Checkbox></Checkbox>
             <Switch></Switch> */}
           {/* <AppbarBottom/>   */}
-          <Input wd="2" label="First Name" />
-          <Input wd="3" label="Last Name" errormsg="last name is required" />
-          <Button wd="4" label="Resgister" className={'btn'} />
+          
+          <Button wd="4" label="Resgister" className={'btn1'} />
         </>
       )
       break
@@ -82,5 +81,7 @@ function Dashboard(props: any) {
     </>
   )
 }
+
+
 
 export default Dashboard

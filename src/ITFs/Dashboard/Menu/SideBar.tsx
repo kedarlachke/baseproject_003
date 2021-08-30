@@ -1,6 +1,8 @@
 import React, { useState, useCallback } from 'react'
 import { M_MenuItem } from './MenuItem'
-export function SideBar(props: any) {
+import {connect} from 'react-redux'
+import {handleSignoutUsernameJWT,userSignOut} from '../../Redux/ActionCreators'
+export function SideBar1(props: any) {
   const { selectcomponent } = props
   const menuList = [
     {
@@ -52,12 +54,23 @@ export function SideBar(props: any) {
       iconName: 'las la-clipboard-list',
       active: '',
     },
+    {
+      name: 'Logout',
+      component: '',
+      slug: '',
+      iconName: 'las la-power-off',
+      active: '',
+    },
   ]
   const [activeMenu, setActiveMenu] = useState(menuList[0].name)
   console.log('side bar')
   function selectItem(menuItem: string) {
     setActiveMenu(menuItem)
     selectcomponent(menuItem)
+    if(menuItem === 'Logout'){
+      handleSignoutUsernameJWT()
+      props.signout()
+    }
   }
   const M_selectItem = useCallback(selectItem, [])
 
@@ -86,5 +99,9 @@ export function SideBar(props: any) {
     </div>
   )
 }
-
-export default SideBar
+const mapdispatcherToProp=(dispatch:any)=>{
+  return {
+    signout :()=> dispatch(userSignOut(false))
+  }
+}
+export const SideBar= connect(null,mapdispatcherToProp)(SideBar1)

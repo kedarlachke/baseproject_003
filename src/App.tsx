@@ -1,5 +1,6 @@
 import './styles.css'
-
+import {Provider} from 'react-redux'
+import store from './ITFs/Redux/store'
 import FormJson from './formElement.json'
 
 import FormContextProvider from './FormContext'
@@ -12,7 +13,9 @@ export const App = () => {
     console.log('clicked on Submitted')
   }
   return (
-    <Login></Login>
+    <Provider store={store}>
+    <Login/>
+    </Provider>
 
     //     <FormContextProvider>
 
