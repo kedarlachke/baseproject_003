@@ -12,4 +12,9 @@ export const UNAUTH_USER = "UNAUTH_USER";
 export const AUTH_ERROR = "AUTH_ERROR";
 export const USER_SIGNOUT ="USER_SIGNOUT"
 
+export const ADD_USERS = "ADD_USERS";
+export const LOADING_USERS = "LOADING_USERS";
+export const FAILED_USERS ="FAILED_USERS"
+
+
 

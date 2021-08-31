@@ -1,8 +1,9 @@
 import './styles.css'
 import {Provider} from 'react-redux'
-import store from './ITFs/Redux/store'
+import {store} from './ITFs/Redux/store'
+import {persistor} from './ITFs/Redux/store'
 import FormJson from './formElement.json'
-
+import { PersistGate } from 'redux-persist/integration/react'
 import FormContextProvider from './FormContext'
 import FormComponent from './components/Elements/FormComponent'
 import Dashboard from './ITFs/Dashboard/Dashboard'
@@ -14,7 +15,9 @@ export const App = () => {
   }
   return (
     <Provider store={store}>
+      <PersistGate persistor={persistor}>
     <Login/>
+    </PersistGate>
     </Provider>
 
     //     <FormContextProvider>

@@ -1,11 +1,13 @@
 import {USER_REGISTRATION_REQUEST,
         USER_REGISTRATION_FAILED,
         USER_REGISTRATION_SUCCESS,
-        USER_VERIFY_SUCCESS,USER_SIGNOUT
+        USER_VERIFY_SUCCESS,USER_SIGNOUT,
+        ADD_USERS
     } from './ActionTypes'
 import {execGql,execGql_xx} from '../gqlclientconfig';
 import SignUpUsernameJWT from '../mutations/signUpUsernameJWT';
 import SignInUsernameJWT from '../mutations/signInUsernameJWT';
+import usersQuery from '../queries/usersQuery'
 import CurrentUserJWT from '../queries/CurrentUserJWT';
 
 export const userResgistrationRequest=()=>{
@@ -108,3 +110,45 @@ return (dispatch:any)=>{
 }    
     
     } 
+
+    export const addusers = (users:any) =>{
+        console.log('----------------------')
+        console.log(users)
+        console.log('----------------------')
+        return(
+        
+        
+        
+        
+        {
+        type:ADD_USERS,
+        payload:users
+    })};    
+    export async function getUsers(values:any) 
+    {
+      var result:any='',errorMessage='',errors =new Array();
+     try
+     {   
+       result= await execGql('query',usersQuery,values)
+     }
+     catch(err)
+      {  
+         errors = err.errorsGql;
+         errorMessage = err.errorMessageGql;    
+         console.log({"errors":errors,"errorMessage":errorMessage})
+        // return callback({"errors":errors,"errorMessage":errorMessage},'' );
+      }
+    if(!result)
+    {
+    
+    console.log({"errors":[],"errorMessage":'No errors and results from GQL'})
+    return [];
+    
+     // return callback({"errors":[],"errorMessage":'No errors and results from GQL'} ,'');
+    }
+    else
+    {
+       //return result.data;
+       return result.data.users;
+    }
+    }    

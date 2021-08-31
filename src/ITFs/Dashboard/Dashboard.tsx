@@ -11,7 +11,8 @@ import { Input } from '../common/InputFields/Input/Input'
 import { Select } from '../common/InputFields/Select/Select'
 import Inventery from '../Inventory/Inventery'
 import { Button } from '../common/Button/Button'
-
+import {connect} from 'react-redux'
+import {getUsers,addusers} from '../Redux/ActionCreators'
 function displaySelectedComponent(displayItem: string) {
   let selectedComp = null
   switch (displayItem) {
@@ -68,6 +69,11 @@ function displaySelectedComponent(displayItem: string) {
 }
 
 function Dashboard(props: any) {
+  getUsers({applicationid:'15001500',client:'45004500',lang: 'EN'}).then((users:any)=>{
+    if(props){
+    props.addusers(users)
+  }
+  });
   console.log('in dashboard')
   const [displayComponent, setDisplayComponent] = useState('Dashboard')
   return (
@@ -82,6 +88,14 @@ function Dashboard(props: any) {
   )
 }
 
-
-
-export default Dashboard
+const mapStateToProps=(state:any)=>{
+return {
+  users:state.users
+}
+}
+const mapdispatcherToProp=(dispatch:any)=>{
+  return {
+    addusers :(users:any)=> dispatch(addusers(users))
+  }
+}
+export default connect(mapStateToProps,mapdispatcherToProp)(Dashboard);
