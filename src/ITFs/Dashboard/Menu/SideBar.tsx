@@ -1,7 +1,7 @@
 import React, { useState, useCallback } from 'react'
 import { M_MenuItem } from './MenuItem'
 import {connect} from 'react-redux'
-import {handleSignoutUsernameJWT,userSignOut} from '../../Redux/ActionCreators'
+import {handleSignoutUsernameJWT,checkCurrentUsernameJWT,ActionToDispatch,ActionToRedirect} from '../../Redux/reducers/actions'
 export function SideBar1(props: any) {
   const { selectcomponent } = props
   const menuList = [
@@ -10,7 +10,7 @@ export function SideBar1(props: any) {
       component: '',
       slug: '',
       iconName: 'las la-igloo',
-      active: 'active',
+      active: '',
     },
     {
       name: 'Customers',
@@ -55,6 +55,13 @@ export function SideBar1(props: any) {
       active: '',
     },
     {
+      name: 'Users',
+      component: '',
+      slug: '',
+      iconName: 'las la-power-off',
+      active: 'active',
+    },
+    {
       name: 'Logout',
       component: '',
       slug: '',
@@ -68,12 +75,42 @@ export function SideBar1(props: any) {
     setActiveMenu(menuItem)
     selectcomponent(menuItem)
     if(menuItem === 'Logout'){
-      handleSignoutUsernameJWT()
-      props.signout()
+      handleProcessLogout()
     }
   }
   const M_selectItem = useCallback(selectItem, [])
+  const handleProcessLogout=async()=> {
+       
+    handleSignoutUsernameJWT(async () =>
+  {
+           
+          checkCurrentUsernameJWT((err:any,result:any)=>
+          { 
+                console.log('In result handleSignoutUsernameJWT');
+             if(!result)
+              {
+                console.log('In result handleSignoutUsernameJWT -1');
+                  props.ActionToDispatch({ type: 'UNAUTH_USER' ,payload : [''] });
+                  props.ActionToRedirect('/signin');
+              } 
+              else
+              {
+                console.log('In result handleSignoutUsernameJWT-2');
+                  props.ActionToDispatch({ type: 'AUTH_ERROR' ,payload : err });
+               
+              }
+          }
+      );
+  
+      }
+   );
+  
+  
+  }
+  
+  
 
+    
   return (
     <div className="sidebar">
       <div className="sidebar-brand">
@@ -99,9 +136,5 @@ export function SideBar1(props: any) {
     </div>
   )
 }
-const mapdispatcherToProp=(dispatch:any)=>{
-  return {
-    signout :()=> dispatch(userSignOut(false))
-  }
-}
-export const SideBar= connect(null,mapdispatcherToProp)(SideBar1)
+
+export const SideBar= connect(null,{ ActionToDispatch,ActionToRedirect})(SideBar1)

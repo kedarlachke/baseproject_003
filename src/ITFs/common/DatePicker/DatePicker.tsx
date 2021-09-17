@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import './datepicker.css'
-import { M_Input } from '../InputFields/Input/Input'
+import { FlatInput } from '../InputFields/Input/Input'
 
 function DatePicker(props: any) {
   const [toggle, setToggle] = useState(false)
@@ -148,20 +148,20 @@ function DatePicker(props: any) {
     }
     return arr
   }
-
+  const { wd, errormsg, label, name, value } = props
   return (
     <div
-      className="date-picker"
+      className={`date-picker col-${wd}`}
       onClick={!toggle ? toggleDatePicker : () => {}}
     >
       {/* <div className="selected-date">{formatDate(finalDate,"")}</div> */}
-      <M_Input
-        label="From Date"
-        errormsg=""
-        name="fromdate"
+      <FlatInput
+        label={label}
+        name={name}
         value={formatDate(finalDate, '')}
+        
       />
-
+    <div className="field-error">{errormsg}</div>
       <div className={toggle ? 'dates active' : 'dates'}>
         <div className="month">
           <div className="arrows prev-mth" onClick={goToPrevMonth}>

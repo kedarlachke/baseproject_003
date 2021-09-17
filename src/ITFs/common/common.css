@@ -3,6 +3,7 @@
   width: 100%;
   background: #fff;
   padding: 25px 30px;
+  min-height: calc(100vh - 150px);
 }
 
 .container .title {
@@ -32,6 +33,7 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
+  margin:.5rem 0;
 }
 
 .grid .row .col-2 {

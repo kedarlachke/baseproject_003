@@ -1,19 +1,29 @@
 import React from 'react'
 import './input.css'
-
+import {
+  setValue, getValue, getErrorValue, getErrorValueN, setCalValue,
+  getDtFormat,
+  getTimeFormat,
+  getDateYYYYMMDD,
+  getDateYYYYMMDDHHMI,
+  getFromToDate
+} from '../../validationlib';
 interface Iinput {
   wd?: string
-  errormsg?: string
   label: string
   name: string
-  value: string
+  currdoc: any,
+  section: string,
+  cal?:string,
+  modifydoc:any
 }
 
 export function Input(props: Iinput) {
-  const { wd, errormsg, label, name, value } = props
+  const { wd, label, name, section, currdoc,modifydoc,cal } = props
   let classname = 'input-field'
-  if (errormsg !== null) {
-    if (errormsg !== undefined && errormsg.length > 0) {
+  const errorMsg = getErrorValueN(currdoc, 'errorsAll.' + section)
+  if (errorMsg !== null) {
+    if (errorMsg !== undefined && errorMsg.length > 0) {
       classname = 'error-input-field'
     }
   }
@@ -26,15 +36,18 @@ export function Input(props: Iinput) {
           autoComplete="off"
           required
           placeholder=" "
-          value={value}
+
+          value={getValue(currdoc, section)}
+          onChange={(event) => { setCalValue(currdoc, section, event.target.value, modifydoc, cal) }}
+          onBlur={event => modifydoc(setValue(currdoc, 'touched.' + section, true))}
         />
         <label className="label-name">
           <span className="content-name">{label}</span>
         </label>
       </div>
-      <div className="field-error">{errormsg}</div>
+      <div className="field-error">{errorMsg}</div>
     </div>
   )
 }
 
-export const M_Input = React.memo(Input)
+export const FlatInput = React.memo(Input)

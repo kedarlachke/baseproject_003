@@ -6,7 +6,8 @@ import { M_SignInForm } from './SignInForm'
 import { M_SignUpForm } from './SignUpForm'
 import {connect} from 'react-redux' 
 import Dashboard from '../Dashboard/Dashboard'
-import { userLoggedIn } from '../Redux/ActionCreators'
+import { ActionToDispatch } from '../Redux/reducers/actions/index'
+import {setCurrentCompany} from '../Redux/ActionCreators'
 
 function Login(props: any) {
   const [form, setForm] = useState('signin')
@@ -16,11 +17,39 @@ function Login(props: any) {
   function setSigninForm() {
     setForm('signin')
   }
-if(sessionStorage.getItem('jwtToken') !== undefined || sessionStorage.getItem('jwtToken') !== null ){
-props.checkuserLogggedIn()
-}
+// if(sessionStorage.getItem('jwtToken') !== undefined || sessionStorage.getItem('jwtToken') !== null ){
+// props.checkuserLogggedIn()
+// }
 
-if(props.loginSuccess){
+const {companies,setCurrentCompany,currentcmpn,authenticated}= props;
+          let selectedcmpn='';
+          if(currentcmpn=='' && companies.length>0)
+          {
+          if(companies.length==1)
+          {
+            selectedcmpn=companies[0].cmpn;
+          }
+          else
+          {
+            companies.map((cmpn:any,index:any)=>{  
+              if(cmpn.isdefault=='Y')
+                  {  
+                    selectedcmpn=cmpn.cmpn
+                   }
+               }
+          
+            )
+          }
+  
+          if(selectedcmpn=='' && companies.length>0 )
+          {
+              selectedcmpn=companies[0].cmpn;
+          }
+  
+          setCurrentCompany(selectedcmpn);
+      }
+
+if(authenticated){
   return (<Dashboard/>)
 }else
   return (
@@ -73,14 +102,19 @@ if(props.loginSuccess){
   )
 }
 
-const mapStateToProps = (state:any)=>{
-  return ({
-    loginSuccess:state.loginSuccess
-  })
-}
-const mapdispatcherToProp=(dispatch:any)=>{
-  return {
-    checkuserLogggedIn :()=> dispatch((userLoggedIn()))
-  }
-}
-export default React.memo(connect(mapStateToProps,mapdispatcherToProp)(Login))
+const mapStateToProps = (state:any) => { 
+  return { authenticated:state.auth.authenticated,
+              authuser:state.auth.authuser ,
+              companies:state.documents.companies,
+              currentcmpn:state.documents.currentcmpn,
+             };
+    };
+ const mapDispatchToProps = (dispatch:any) =>({
+     ActionToDispatch,
+     setCurrentCompany: (currentcmpn:any,callback:any) =>{
+       dispatch(setCurrentCompany(currentcmpn));
+       if(callback && typeof callback === "function"){
+                   callback();
+               }
+     }});
+export default React.memo(connect(mapStateToProps,mapDispatchToProps)(Login))

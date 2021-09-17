@@ -8,57 +8,43 @@ import {setValue,getValue,getErrorValue,getErrorValueN,setCalValue,
 
 } from '../../validationlib';
 
-interface abc{
-  modifydoc:any;
-  currdoc:any;
-  section:any;
-  iconClass:string;
-  cal?:boolean;
-  placeholder?:string;
-  name:string;
-  onChange:any;
-}
-export function LeftIconRoundInput_backup(props:abc) {
-const {modifydoc,currdoc,section,iconClass,cal,placeholder,name} = props
 
-    return (
-        <div className="round-input-field">
-        <i className={iconClass}></i>
-        <input
-          type="text"
-          placeholder={placeholder}
-          name={name}
-          value={getValue(currdoc,section)}
-      onChange={(event)=>{setCalValue(currdoc,section,event.target.value,modifydoc,cal)  } }
-      onBlur={event => modifydoc(setValue(currdoc,'touched.'+section,true))}
-      autoComplete="false"
-        />
-      </div>
-    )
-}
 
 interface IRoundInput{
   modifydoc:any;
   iconClass:string;
-  placeholder?:string;
   name:string;
-  value:any;
+  currdoc:any;
+  section:string;
+  label:string;
+  cal?:string;
+  wd?:string;
+  placeholder:string;
 }
 export function LeftIconRoundInput(props:IRoundInput) {
-  console.log('in round input')
-  const {modifydoc,iconClass,placeholder,name,value} = props
-  
+
+  const { wd, label, name, section, currdoc,modifydoc,cal,iconClass,placeholder } = props
+  let classname = 'round-input-field'
+  const errorMsg = getErrorValueN(currdoc, 'errorsAll.' + section)
+  if (errorMsg !== null) {
+    if (errorMsg !== undefined && errorMsg.length > 0) {
+      classname = 'error-input-field'
+    }
+  }  
       return (
+        <div className={`col-${wd}`}>
           <div className="round-input-field">
           <i className={iconClass}></i>
           <input
             type="text"
             placeholder={placeholder}
             name={name}
-            value={value}
-        onChange={(event)=>{modifydoc(event)} }
+            value={getValue(currdoc, section)}
+          onChange={(event) => { setCalValue(currdoc, section, event.target.value, modifydoc, cal) }}
+          onBlur={event => modifydoc(setValue(currdoc, 'touched.' + section, true))}
         autoComplete="false"
           />
+        </div>
         </div>
       )
   }

@@ -2,7 +2,7 @@ import React from 'react'
 //import { View ,Text,StyleSheet} from "react-native"
 import { calculateDocument }  from './InvoiceLogic'
 
-export  const setCalValue = (currdoc:any,section:any,value:any,modifydoc:any,cal:string) =>
+export  const setCalValue = (currdoc:any,section:any,value:any,modifydoc:any,cal:any) =>
 {
   //alert(value)
   let currdoc1=setValue(currdoc,section,value);
@@ -22,7 +22,7 @@ export  const setCalValue = (currdoc:any,section:any,value:any,modifydoc:any,cal
 }
 
 
-export const  setValue= (currentDoc1,section,value) =>
+export const  setValue= (currentDoc1:any,section:string,value:boolean) =>
 {
     var currentDoc = JSON.parse(JSON.stringify(currentDoc1));
     var currentObjref = currentDoc;
@@ -56,7 +56,7 @@ export const  setValue= (currentDoc1,section,value) =>
 
 
 
-export const  setErrorValue= (currentDoc1,section,value) =>
+export const  setErrorValue= (currentDoc1:any,section:string,value:string) =>
 {
 
     if(value==null || value=='')
@@ -99,7 +99,7 @@ export const  setErrorValue= (currentDoc1,section,value) =>
 
 
 
-export const  getValue= (currentDoc,section) =>
+export const  getValue= (currentDoc:any,section:string) =>
 {
 
     if(section == null) return '';
@@ -135,7 +135,7 @@ export const  getValue= (currentDoc,section) =>
 }
 
 
-export const  getErrorValue= (currentDoc,section) =>
+export const  getErrorValue= (currentDoc:any,section:string) =>
 {
 
     if(section == null) return ;
@@ -167,7 +167,7 @@ export const  getErrorValue= (currentDoc,section) =>
 }
 
 
-export const  getErrorValueN= (currentDoc,section) =>
+export const  getErrorValueN= (currentDoc:any,section:string) =>
 {
 
   if(section == null) return ;
@@ -198,10 +198,10 @@ export const  getErrorValueN= (currentDoc,section) =>
 
 
 
-export const requiredCheck = value => (value ? undefined : 'Required');
-export const maxLength = max => value =>
+export const requiredCheck = (value:any) => (value ? undefined : 'Required');
+export const maxLength = (max:any) => (value:any) =>
   value && value.length > max ? `Must be ${max} characters or less` : ''
-export const minLength = min => value =>
+export const minLength = (min:any) => (value:any) =>
   value && value.length < min ? `Must be ${min} characters or more` : ''
 
 
@@ -223,7 +223,7 @@ export const maxLength10= maxLength(10)
 
 
 
-export const getFromToDate=(inpdate1,duration)=>
+export const getFromToDate=(inpdate1:any,duration:any)=>
 {
 
  let inpdate=''
@@ -247,8 +247,8 @@ export const getFromToDate=(inpdate1,duration)=>
     let strmi=String(mi).padStart(2, '0');
 	let strhh=String(hh).padStart(2, '0');
     let strdd=String(dd).padStart(2, '0'); 
-	let strmm=String(mm).padStart(2, '0'); 
-	let stryyyy=String(yyyy); 
+	let strmm:any=String(mm).padStart(2, '0'); 
+	let stryyyy:any=String(yyyy); 
 	let stryyyyplus=String(yyyy+1); 
     let stryyyyminus=String(yyyy-1); 
     let strlastdaymm=String(new Date(stryyyy, strmm, 0).getDate()).padStart(2, '0');
@@ -337,7 +337,7 @@ retObj={
 }
 
 
-export const   getDtFormat=(inpdate)=>
+export const   getDtFormat=(inpdate:any)=>
 {
 
   if(inpdate==null|| inpdate=='') return '';
@@ -409,7 +409,7 @@ export const   getDtFormat=(inpdate)=>
 
 
 
-export const   getTimeFormat=(inpdate,format)=>
+export const   getTimeFormat=(inpdate:any,format:any)=>
 {
 
   if(inpdate==null|| inpdate=='') return '';
@@ -451,7 +451,7 @@ export const   getTimeFormat=(inpdate,format)=>
 
 
 
-export const   getDateYYYYMMDD=(inpdate)=>
+export const   getDateYYYYMMDD=(inpdate:any)=>
 {
 
 
@@ -468,7 +468,7 @@ export const   getDateYYYYMMDD=(inpdate)=>
 
 
 
-export const   getDateYYYYMMDDHHMI=(inpdate)=>
+export const   getDateYYYYMMDDHHMI=(inpdate:any)=>
 {
 
 
@@ -484,7 +484,7 @@ export const   getDateYYYYMMDDHHMI=(inpdate)=>
 
 
 
-export const   getDateYYYYMMDDHHMISS=(inpdate)=>
+export const   getDateYYYYMMDDHHMISS=(inpdate:any)=>
 {
 
 
@@ -498,9 +498,9 @@ export const   getDateYYYYMMDDHHMISS=(inpdate)=>
    return yyyy+mm+dd+hh+mi+ss;
 }
 
-export const getToday=(dtformat) =>
+export const getToday=(dtformat:any) =>
 {
-   var today = new Date();
+   var today:any = new Date();
    var dd = String(today.getDate()).padStart(2, '0');
    var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
    var yyyy = today.getFullYear();
@@ -520,34 +520,34 @@ export const getToday=(dtformat) =>
    return today;
 }
 
-export const  isValidDate=s => {
+export const  isValidDate=(s:any) => {
   var d = new Date(s.substring(0,4), s.substring(4,6)-1, s.substring(6,8));
 
   return d && d.getMonth()+1 == s.substring(4,6);
   
 }
 
-export const numberCheck = value =>
+export const numberCheck = (value:any) =>
   value && isNaN(Number(value)) ? 'Must be a number' : ''
-export const minValue = min => value =>
+export const minValue = (min:any) => (value:any) =>
   value && value < min ? `Must be at least ${min}` : ''
 export const minValue18 = minValue(18)
-export const emailCheck = value =>
+export const emailCheck = (value:any) =>
   value && !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(value)
     ? 'Invalid email address'
     : ''
 
 
-export const alphaNumericCheck = value =>
+export const alphaNumericCheck = (value:any) =>
   value && /[^a-zA-Z0-9 ]/i.test(value)
     ? 'Only alphanumeric characters'
     : ''
-export const phoneNumberCheck = value =>
+export const phoneNumberCheck = (value:any) =>
   value && !/^(0|[1-9][0-9]{9})$/i.test(value)
     ? 'Invalid phone number, must be 10 digits'
     : ''
 
-    export const   runCheck = function(checkValue,validationArray)
+    export const   runCheck = function(checkValue:any,validationArray:any)
     {
 
       let valueToCheck=checkValue;
@@ -573,7 +573,7 @@ export const phoneNumberCheck = value =>
       return eMessage;
 
     }
-    export const   displayFieldError = function(errorMessage)
+    export const   displayFieldError = function(errorMessage:any)
     {
 
       if(errorMessage==null)
@@ -601,7 +601,7 @@ export const phoneNumberCheck = value =>
 
 
 
-    export const   displaySubmitError = function(errorMessage)
+    export const   displaySubmitError = function(errorMessage:any)
     {
       
 

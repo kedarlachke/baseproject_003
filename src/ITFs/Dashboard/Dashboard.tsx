@@ -12,7 +12,10 @@ import { Select } from '../common/InputFields/Select/Select'
 import Inventery from '../Inventory/Inventery'
 import { Button } from '../common/Button/Button'
 import {connect} from 'react-redux'
-import {getUsers,addusers} from '../Redux/ActionCreators'
+import UserComponent from '../User/UserComponent'
+import UserListComponent from '../User/UserListComponent'
+//import {getUsers,addusers} from '../Redux/ActionCreators'
+
 function displaySelectedComponent(displayItem: string) {
   let selectedComp = null
   switch (displayItem) {
@@ -62,6 +65,13 @@ function displaySelectedComponent(displayItem: string) {
         </>
       )
       break
+      case 'Users':
+      selectedComp = (
+        <>
+          <UserListComponent/>
+        </>
+      )
+      break
     default:
       break
   }
@@ -69,11 +79,11 @@ function displaySelectedComponent(displayItem: string) {
 }
 
 function Dashboard(props: any) {
-  getUsers({applicationid:'15001500',client:'45004500',lang: 'EN'}).then((users:any)=>{
-    if(props){
-    props.addusers(users)
-  }
-  });
+  // getUsers({applicationid:'15001500',client:'45004500',lang: 'EN'}).then((users:any)=>{
+  //   if(props){
+  //   props.addusers(users)
+  // }
+  // });
   console.log('in dashboard')
   const [displayComponent, setDisplayComponent] = useState('Dashboard')
   return (
@@ -95,7 +105,7 @@ return {
 }
 const mapdispatcherToProp=(dispatch:any)=>{
   return {
-    addusers :(users:any)=> dispatch(addusers(users))
+    //addusers :(users:any)=> dispatch(addusers(users))
   }
 }
 export default connect(mapStateToProps,mapdispatcherToProp)(Dashboard);

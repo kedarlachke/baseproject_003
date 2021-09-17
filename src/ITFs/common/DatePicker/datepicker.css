@@ -39,6 +39,7 @@
 
 .date-picker .dates.active {
   display: block;
+  z-index: 1;
 }
 
 .date-picker .dates .month {
