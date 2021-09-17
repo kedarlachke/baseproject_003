@@ -8,7 +8,7 @@
     border-radius: 4px;
 }
 
-.alert .fa-exclamation-circle{
+.alert .fa-exclamation-circle,.alert .fa-check-circle{
     position: absolute;
     left: 20px;
     top:50%;
@@ -118,7 +118,7 @@
     border-left: 8px solid #228B22;
 }
 
-.alert.success .fa-exclamation-circle{
+.alert.success .fa-check-circle{
     color: #228B22;
 }
 
