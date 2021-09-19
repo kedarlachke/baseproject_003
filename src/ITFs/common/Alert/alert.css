@@ -3,7 +3,7 @@
     min-width: 420px;
     position: absolute;
     right: 0px;
-    top: 300px;
+    bottom: 10px;
     overflow: hidden;
     border-radius: 4px;
 }
