@@ -12,6 +12,7 @@ import { deleteDocument,saveDocument,addusers } from '../Redux/ActionCreators'
 import deleteUser from '../mutations/deleteUsername';
 import { execGql, execGql_xx } from '../gqlclientconfig';
 import usersQuery from '../queries/usersQuery'
+import Messagesnackbar from '../common/Alert/Alert'
 import {
   runCheck,
   requiredCheck,
@@ -49,7 +50,7 @@ const handleSaveuser = async (currentdocument: any) => {
     }
     result = await execGql('mutation', saveUser, userForSave)
   }
-  catch (err) {
+  catch (err:any) {
     errors = err.errorsGql;
     errorMessage = err.errorMessageGql;
     console.log({ "errors": errors, "errorMessage": errorMessage })
@@ -69,7 +70,7 @@ const handleDeleteuser = async (_id: string) => {
   try {
     result = await execGql('mutation', deleteUser, { _id })
   }
-  catch (err) {
+  catch (err:any) {
     errors = err.errorsGql;
     errorMessage = err.errorMessageGql;
     console.log({ "errors": errors, "errorMessage": errorMessage })
@@ -122,7 +123,7 @@ export async function getUsers1(values: any) {
   try {
     result = await execGql('query', usersQuery, values)
   }
-  catch (err) {
+  catch (err:any) {
     errors = err.errorsGql;
     errorMessage = err.errorMessageGql;
     console.log({ "errors": errors, "errorMessage": errorMessage })
@@ -223,11 +224,17 @@ const initDocumentstatus = {
 export const UserComponent = (props: any) => {
   const [currentdocument, modifydocument] = useState(initcurrdoc)
   const [documentstatus, setDocumentstatus] = useState(initDocumentstatus)
+  const closeSnackBar=()=>{
+    let docstatus={...documentstatus}
+      docstatus.snackbaropen=false;
+    setDocumentstatus(docstatus)
+  }
      useEffect(() => {
+      const { currentcmpn, deleteDocument, saveDocument, docnos, users, addusers } = props;
 let _id = props._id
        if(_id!='NO-ID')
         {
-            const curdoc= props.users.find(document=>document._id==props._id)
+            const curdoc= props.users.find((document:any)=>document._id==props._id)
          modifydocument(curdoc)
         }
 
@@ -266,7 +273,7 @@ let _id = props._id
         docstatus.yesaction= async () => {
           let docno = getDocNo(currentcmpn, doctype, '', docnos)
           await handleDeleteuser(currentDoc._id)
-          let newdoc = newDocument(currentcmpn, docno);
+          let newdoc:any = newDocument(currentcmpn, docno);
           modifydocument(newdoc)
           getUsers1({ applicationid: '15001500', client: '45004500', lang: 'EN' })
             .then(users => {
@@ -277,6 +284,7 @@ let _id = props._id
             docstatus.snackbaropen=true;
             docstatus.snackbarseverity='success';
             docstatus.snackbartext= doctypetext + ' Deleted'
+
             setDocumentstatus(docstatus)
         }
         docstatus.noaction= () => {
@@ -293,7 +301,7 @@ let _id = props._id
         docstatus.dailogtext = 'Clear un-saved  ' + doctypetext + '?',
         docstatus.yesaction = () => {
             let docno = getDocNo(currentcmpn, doctype, '', docnos)
-            let newcurdoc = newDocument(currentcmpn, docno)
+            let newcurdoc:any = newDocument(currentcmpn, docno)
             modifydocument(newcurdoc)
             docstatus.action= false
             docstatus.snackbaropen= true
@@ -353,7 +361,7 @@ let _id = props._id
           docstatus.snackbaropen = true;
           docstatus.snackbarseverity = 'success';
           docstatus.snackbartext = doctypetext + ' Saved';
-
+          setDocumentstatus(docstatus);
 
         }
         break;
@@ -433,7 +441,23 @@ let _id = props._id
           </div>
           
       </div>
+{/* <AlertDialog 
+                    open={action}  
+                    handleno={noaction}
+                    handleyes={yesaction}
+                    dailogtext={dailogtext}
+                    dailogtitle={dailogtitle}
 
+                    /> */}
+                
+
+
+                    <Messagesnackbar 
+                     snackbaropen={documentstatus.snackbaropen}
+                     snackbarseverity={documentstatus.snackbarseverity}
+                     handlesnackbarclose={closeSnackBar}
+                     snackbartext={documentstatus.snackbartext}
+                    />
     </div>
   )
 }

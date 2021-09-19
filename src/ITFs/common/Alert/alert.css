@@ -3,7 +3,7 @@
     min-width: 420px;
     position: absolute;
     right: 0px;
-    top: 10px;
+    top: 300px;
     overflow: hidden;
     border-radius: 4px;
 }
@@ -65,7 +65,7 @@
     animation: show_slide 1s ease forwards;
 }
 
-@keyframes show_slide {
+/* @keyframes show_slide {
     0%{
         transform: translateX(100%);
     }
@@ -80,7 +80,7 @@
         transform: translateX(-10%);
     }
 
-}
+} */
 
 .alert.hide{
     display:none;
