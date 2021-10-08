@@ -13,6 +13,7 @@ import deleteUser from '../mutations/deleteUsername';
 import { execGql, execGql_xx } from '../gqlclientconfig';
 import usersQuery from '../queries/usersQuery'
 import Messagesnackbar from '../common/Alert/Alert'
+import AlertDialog from '../common/PopupModals/ConfirmationModal'
 import {
   runCheck,
   requiredCheck,
@@ -27,6 +28,9 @@ import {
   getValue,
   setValue
  } from '../common/validationlib';
+ import {
+  Redirect,
+  withRouter } from 'react-router-dom'
 
 const usexoptions = [{ 'key': 'M', 'value': 'Male' }, { 'key': 'F', 'value': 'Female' }, { 'key': 'NTD', 'value': 'Not disclosed' }]
 const countryoptions = [{ 'key': 'IN', 'value': 'India' }, { 'key': 'GE', 'value': 'Germany' }, { 'key': 'US', 'value': 'USA' }]
@@ -69,6 +73,13 @@ const handleDeleteuser = async (_id: string) => {
   var result: any = '', errorMessage = '', errors = new Array();
   try {
     result = await execGql('mutation', deleteUser, { _id })
+    if (!result) {
+    console.log({ "errors": [], "errorMessage": 'No errors and results from GQL' })
+    // return callback({"errors":[],"errorMessage":'No errors and results from GQL'} ,'');
+  }
+  else {
+    return result.data;
+  }
   }
   catch (err:any) {
     errors = err.errorsGql;
@@ -76,13 +87,7 @@ const handleDeleteuser = async (_id: string) => {
     console.log({ "errors": errors, "errorMessage": errorMessage })
     // return callback({"errors":errors,"errorMessage":errorMessage},'' );
   }
-  if (!result) {
-    console.log({ "errors": [], "errorMessage": 'No errors and results from GQL' })
-    // return callback({"errors":[],"errorMessage":'No errors and results from GQL'} ,'');
-  }
-  else {
-    return result.data;
-  }
+  
 }
 
 const getDocNo = (currentcmpn: any, doctype: string, docnoprefix: string, docnos: any) => {
@@ -224,6 +229,7 @@ const initDocumentstatus = {
 export const UserComponent = (props: any) => {
   const [currentdocument, modifydocument] = useState(initcurrdoc)
   const [documentstatus, setDocumentstatus] = useState(initDocumentstatus)
+  const [redirect, setRedirect] = useState(false)
   const closeSnackBar=()=>{
     let docstatus={...documentstatus}
       docstatus.snackbaropen=false;
@@ -231,10 +237,11 @@ export const UserComponent = (props: any) => {
   }
      useEffect(() => {
       const { currentcmpn, deleteDocument, saveDocument, docnos, users, addusers } = props;
-let _id = props._id
+      let _id=new URLSearchParams(props.location.search).get("_id")
+
        if(_id!='NO-ID')
         {
-            const curdoc= props.users.find((document:any)=>document._id==props._id)
+            const curdoc= props.users.find((document:any)=>document._id==_id)
          modifydocument(curdoc)
         }
 
@@ -252,6 +259,7 @@ let _id = props._id
     const { currentcmpn, deleteDocument, saveDocument, docnos, users, addusers } = props;
     let currentDoc = { ...currentdocument }
     currentDoc.doctype = doctypes.USER;
+    currentDoc.doctypetext="User"
     const { doctypetext, docnoprefix, doctype } = currentDoc;
     let action_type = '';
 
@@ -272,7 +280,7 @@ let _id = props._id
         docstatus.dailogtext= 'Delete ' + doctypetext + '?'
         docstatus.yesaction= async () => {
           let docno = getDocNo(currentcmpn, doctype, '', docnos)
-          await handleDeleteuser(currentDoc._id)
+         let a= await handleDeleteuser(currentDoc._id)
           let newdoc:any = newDocument(currentcmpn, docno);
           modifydocument(newdoc)
           getUsers1({ applicationid: '15001500', client: '45004500', lang: 'EN' })
@@ -373,6 +381,13 @@ let _id = props._id
 
 
   }
+  const {action,yesaction,noaction,dailogtext,dailogtitle} = documentstatus;
+  if(redirect){
+    let redirectpath='/Users'
+    return <Redirect push to={redirectpath} />;
+
+     
+  }else
   return (
     <div className="container">
       <div className="grid">
@@ -421,7 +436,7 @@ let _id = props._id
           label="Back"
           name="back"
           className="btn-deault btn-small"
-          
+          onClick={()=>setRedirect(true)}
         />
           <Button
             wd="2"
@@ -441,14 +456,14 @@ let _id = props._id
           </div>
           
       </div>
-{/* <AlertDialog 
+ <AlertDialog 
                     open={action}  
                     handleno={noaction}
                     handleyes={yesaction}
                     dailogtext={dailogtext}
                     dailogtitle={dailogtitle}
 
-                    /> */}
+                    /> 
                 
 
 
@@ -496,4 +511,4 @@ callback();
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(UserComponent)
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(UserComponent))

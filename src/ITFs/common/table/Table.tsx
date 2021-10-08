@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState,useEffect } from 'react'
 import Column from './Column'
 import ColumnHead from './ColumnHead'
 import {Pagination} from './Pagination';
@@ -8,13 +8,19 @@ function Table(props: any) {
     const [selectedColumn, setSelectedColumn] = useState("");
     const [order, setOrder] = useState("");
     const [activePage, setActivePage] = useState(1);
+    const [filterdata, setFilter] = useState([]);
     const [numberOfRecordsPerPage, setNumberOfRecordsPerPage] = useState(5)
     function sortSelectedColumn(selectedcolumn: string, order: string) {
         setOrder(order);
         setSelectedColumn(selectedcolumn)
     }
+    useEffect(() => {
+        setFilter([...data])
+        
+    }, [data])
+    
 
-    data.sort(compare)
+    filterdata?.sort(compare)
     function compare(a: any, b: any) {
         if(order==="asc"){
         if (a[selectedColumn] < b[selectedColumn]) {
@@ -34,17 +40,25 @@ function Table(props: any) {
         return 0;
     }
     }
-  const pageData=[]
+  let pageData:any=[]
   
   for(let i=(activePage-1)*numberOfRecordsPerPage;i<(((activePage-1)*numberOfRecordsPerPage)+numberOfRecordsPerPage) && i<data.length;i++){
-    pageData.push(data[i])
+    pageData?.push(filterdata[i])
   }
- const globalSearch=(searchtext:string)=>{
-     let keys=Object.keys(data[0])
-     for(let key of keys){
-
-     }
- }
+    const globalSearch = (searchtext: string) => {
+        let keys = Object.keys(data[0])
+        let filteredData:any=[]
+        for (let i = 0; i < data.length; i < i++) {
+            for (let key of keys) {
+                if(data[i][key]?.includes(searchtext)){
+                    filteredData.push(data[i])
+                    break;
+                }
+            }
+        }
+        setFilter(filteredData);
+        
+    }
     return (
         
         <>
@@ -57,7 +71,8 @@ function Table(props: any) {
                     <div className="card-header">
                         
                         <h3>Recent Project({data.length})</h3>
-                        <div><input placeholder="search" style={{height:'40px',fontSize:"16px"}}/><i className="fas fa-times"/><i className="fas fa-search"/></div>
+    
+                        <div><input placeholder="search" style={{height:'40px',fontSize:"16px"}} onChange={(e)=>{globalSearch(e.target.value)}}/><i className="fas fa-times"/><i className="fas fa-search"/></div>
                         
                         
                     </div>
@@ -70,14 +85,14 @@ function Table(props: any) {
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {pageData.map((data: any) => { 
+                                    {pageData?.map((data: any) => { 
                                     return (<tr>{props.children.map((ele: any) => {
                                         const { fieldname, columnname,render,width } = ele.props
                                        
-                                        return <Column data={data[fieldname]} />
+                                        return <Column data={data && data[fieldname]? data[fieldname]:""} />
                                     })}
                                     {<Column data={<div className="table-button-container">{actions.map((action:any,i:any)=>{
-                                        return(<SMIconButton action={action.action} id={data["projectTitle"]} icon={action.icon} className={action.className}/>)})}</div>}/>
+                                        return(<SMIconButton action={action.action} id={data && data["_id"]? data["_id"]:""} icon={action.icon} className={action.className}/>)})}</div>}/>
                                     }
                                     </tr>)})
                                 

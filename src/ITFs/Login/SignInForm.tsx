@@ -98,7 +98,9 @@ export function SignInForm(props:any) {
       <M_LeftIconRoundInput  modifydoc={M_updateUser} iconClass="fas fa-user" name="username" placeholder="Username" currdoc={user} section={"username"} label="user name" wd={"12"}/>
       <M_LeftIconRoundInput  modifydoc={M_updateUser} iconClass="fas fa-lock" name="password" placeholder="Password" currdoc={user} section={"password"} label="user name" wd={"12"}/>
       <input type="button" value="Login" className="btn solid" onClick={()=>{handleSubmit(user)}} />
+      <div  className="field-error">{state.formErrorMessage}</div>
       <M_SocialMediaLogin label="Login" />
+      
     </div>
   )
 }

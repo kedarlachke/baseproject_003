@@ -8,42 +8,42 @@ export function SideBar1(props: any) {
     {
       name: 'Dashboard',
       component: '',
-      slug: '',
+      slug: '/',
       iconName: 'las la-igloo',
       active: '',
     },
     {
       name: 'Customers',
       component: '',
-      slug: '',
+      slug: '/Customers',
       iconName: 'las la-users',
       active: '',
     },
     {
       name: 'Projects',
       component: '',
-      slug: '',
+      slug: '/Projects',
       iconName: 'las la-clipboard-list',
       active: '',
     },
     {
       name: 'Orders',
       component: '',
-      slug: '',
+      slug: '/Orders',
       iconName: 'las la-shopping-bag',
       active: '',
     },
     {
       name: 'Inventory',
       component: '',
-      slug: '',
+      slug: '/Inventory',
       iconName: 'las la-receipt',
       active: '',
     },
     {
       name: 'Accounts',
       component: '',
-      slug: '',
+      slug: '/Accounts',
       iconName: 'las la-user-circle',
       active: '',
     },
@@ -57,7 +57,7 @@ export function SideBar1(props: any) {
     {
       name: 'Users',
       component: '',
-      slug: '',
+      slug: '/Users',
       iconName: 'las la-power-off',
       active: 'active',
     },
@@ -128,6 +128,7 @@ export function SideBar1(props: any) {
               iconname={menuitem.iconName}
               active={activeMenu === menuitem.name ? 'active' : ''}
               selectItem={M_selectItem}
+              slug={menuitem.slug}
             />
           )
         })}

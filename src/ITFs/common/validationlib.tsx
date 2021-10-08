@@ -101,7 +101,9 @@ export const  setErrorValue= (currentDoc1:any,section:string,value:string) =>
 
 export const  getValue= (currentDoc:any,section:string) =>
 {
-
+  if(currentDoc === undefined || currentDoc === null){
+    return
+  }
     if(section == null) return '';
     var sections = section.split(".");
    for (var i = 0; i < sections.length; i++)
@@ -137,7 +139,9 @@ export const  getValue= (currentDoc:any,section:string) =>
 
 export const  getErrorValue= (currentDoc:any,section:string) =>
 {
-
+  if(currentDoc === undefined || currentDoc === null){
+    return
+  }
     if(section == null) return ;
     var sections = section.split(".");
    for (var i = 0; i < sections.length; i++)
@@ -169,8 +173,11 @@ export const  getErrorValue= (currentDoc:any,section:string) =>
 
 export const  getErrorValueN= (currentDoc:any,section:string) =>
 {
-
-  if(section == null) return ;
+  if(currentDoc === undefined || currentDoc === null){
+    return
+  }
+  if(section == null ) 
+  return ;
   var sections = section.split(".");
  for (let i = 0; i < sections.length; i++)
 {

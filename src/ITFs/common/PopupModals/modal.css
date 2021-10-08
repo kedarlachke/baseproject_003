@@ -1,30 +1,31 @@
 .modal-container{
     position: absolute;
-    visibility: hidden; 
+    /* visibility: hidden;  */
     left: 0;
     top:0;
     margin: 0;
     padding: 0;
-    background: rgba(167, 167, 187, 0.25);
+    background: rgba(129, 129, 138, 0.25);
     height: 100%;
     width: 100%;
-    z-index: 0;
+    z-index: 101;
     transition: .3s ease-in;
+
 }
 
-.center, .content{
+.modal-container .center, .modal-container .content{
     position: absolute;
-    top: 0%;
+    top: 15%;
     left:50%;
     transform: translate(-50%, 0%);
-    z-index: 1;
+    z-index: 102;
     
 }
 
 
 
 
-.click-me{
+/* .click-me{
     display: block;
     width: 160px;
     height: 50px;
@@ -41,14 +42,14 @@
 
 .click-me:hover{
     background: #219150;
-}
+} */
 
 
-#click:checked ~ .modal-container{
+/* #click:checked ~ .modal-container{
    
     visibility: visible;
 
-}
+} */
 
 .modal-container .content{
     user-select: none;
@@ -59,11 +60,11 @@
     box-shadow: 0 2px 12px 0 rgba(0, 0, 0, .4);
     /* transition: .3s ease-in; */
 }
-#click:checked ~ .content{
+/* #click:checked ~ .content{
     opacity: 1;
     visibility: visible;
 
-}
+} */
 .header{
     height: 68px;
     background: var(--main-color);
