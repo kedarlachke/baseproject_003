@@ -1,15 +1,21 @@
 import React from 'react'
+import ReactDOM from 'react-dom'
 import './loader.css'
 
 export const Loader = (props:any) => {
-    return (
+    const {display} = props
+    if(display){
+    return ReactDOM.createPortal(
         <div className="loader-container">
             <div className="center">
                 <div className="ring"></div>
                 <span>Loading...</span>
             </div>
-        </div>
-    )
+        </div>,
+        document.getElementById("root")
+    )}else{
+        return <></>
+    }
 }
 
 

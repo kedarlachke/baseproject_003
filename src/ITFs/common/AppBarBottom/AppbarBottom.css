@@ -9,7 +9,7 @@
   width: 600px;
   height: 55px;
   box-shadow: 0 0 3px rgba(0, 0, 0, 0.432);
-  background-color: #00A19D;
+  background-color: var(--main-color);
   display: flex;
   overflow-x: auto;
 }

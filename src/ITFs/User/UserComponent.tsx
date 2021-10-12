@@ -232,7 +232,7 @@ const initDocumentstatus = {
 export const UserComponent = (props: any) => {
   const [currentdocument, modifydocument] = useState({})
   const [documentstatus, setDocumentstatus] = useState(initDocumentstatus)
-  const [redirect, setRedirect] = useState(false)
+  const [redirect, goBack] = useState(false)
   const closeSnackBar=()=>{
     let docstatus={...documentstatus}
       docstatus.snackbaropen=false;
@@ -393,7 +393,6 @@ export const UserComponent = (props: any) => {
   }else
   return (
     <>
-    <Loader/>
     <div className="container">
       <div className="grid">
         <div className="row">
@@ -430,7 +429,7 @@ export const UserComponent = (props: any) => {
           <SelectInput wd="3" label="Country" options={countryoptions} name="country" currdoc={currentdocument} section={'country'} modifydoc={modifydocument} />
 
         </div>
-        <div className="row"><Button
+        {/* <div className="row"><Button
           wd="2"
           label="Clear"
           name="register"
@@ -441,7 +440,7 @@ export const UserComponent = (props: any) => {
           label="Back"
           name="back"
           className="btn-deault btn-small"
-          onClick={()=>setRedirect(true)}
+          onClick={()=>goBack(true)}
         />
           <Button
             wd="2"
@@ -458,7 +457,7 @@ export const UserComponent = (props: any) => {
            onClick={setDocumentAction}
            
           />
-          </div>
+          </div> */}
           
       </div>
  <AlertDialog 
@@ -480,7 +479,7 @@ export const UserComponent = (props: any) => {
                     />
                     
     </div>
-    <AppbarBottom/>
+    <AppbarBottom setAction={setDocumentAction} handleGoback={goBack}/>
     </>
   )
 }

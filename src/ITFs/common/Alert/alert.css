@@ -3,9 +3,10 @@
     min-width: 420px;
     position: absolute;
     right: 0px;
-    bottom: 10px;
+    bottom: 55px;
     overflow: hidden;
     border-radius: 4px;
+    z-index: 300;
 }
 
 .alert .fa-exclamation-circle,.alert .fa-check-circle{
