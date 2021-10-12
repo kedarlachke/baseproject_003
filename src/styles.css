@@ -6,7 +6,8 @@
 :root {
   /* --main-color:#DD2F6E;  */
   /* --main-color:#a62956; */
-  --main-color: #0b8583;
+  /* --main-color: #0b8583; */
+    --main-color:#222831;
   --dark-color: #1d2231;
   --text-grey: #8390a2;
   --error-color: #f21a1d;
@@ -62,7 +63,7 @@
 .sidebar-menu a {
   padding-left: 1rem;
   display: block;
-  color: #fff;
+  color: #00ADB5;
   font-size: 1.1rem;
 }
 .sidebar-menu a.active {
@@ -177,6 +178,7 @@ main {
   padding: 2rem 1.5rem;
   background: #f1f5f9;
   min-height: calc(100vh - 85px);
+  position: relative;
 }
 
 .cards {
@@ -417,6 +419,9 @@ main {
 @media only screen and (max-width: 560px) {
   .cards {
     grid-template-columns: 100%;
+  }
+  main{
+    padding: 2rem 0rem;
   }
 }
 

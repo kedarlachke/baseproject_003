@@ -14,6 +14,7 @@ import { execGql, execGql_xx } from '../gqlclientconfig';
 import usersQuery from '../queries/usersQuery'
 import Messagesnackbar from '../common/Alert/Alert'
 import AlertDialog from '../common/PopupModals/ConfirmationModal'
+import Loader from '../common/Loader/Loader'
 import {
   runCheck,
   requiredCheck,
@@ -31,6 +32,8 @@ import {
  import {
   Redirect,
   withRouter } from 'react-router-dom'
+import AppbarBottom from '../common/AppBarBottom/AppbarBottom'
+
 
 const usexoptions = [{ 'key': 'M', 'value': 'Male' }, { 'key': 'F', 'value': 'Female' }, { 'key': 'NTD', 'value': 'Not disclosed' }]
 const countryoptions = [{ 'key': 'IN', 'value': 'India' }, { 'key': 'GE', 'value': 'Germany' }, { 'key': 'US', 'value': 'USA' }]
@@ -227,7 +230,7 @@ const initDocumentstatus = {
   dailogtext:""
 }
 export const UserComponent = (props: any) => {
-  const [currentdocument, modifydocument] = useState(initcurrdoc)
+  const [currentdocument, modifydocument] = useState({})
   const [documentstatus, setDocumentstatus] = useState(initDocumentstatus)
   const [redirect, setRedirect] = useState(false)
   const closeSnackBar=()=>{
@@ -245,10 +248,10 @@ export const UserComponent = (props: any) => {
          modifydocument(curdoc)
         }
 
-        if(Object.keys(currentdocument).length==0 && _id=='NO-ID')
+        if(_id=='NO-ID')
         {   
             let docno= getDocNo(currentcmpn,doctypes.USER,'',docnos)
-            modifydocument(newDocument(currentcmpn,docno,''))
+            modifydocument(newDocument(currentcmpn,docno))
         }
          
         return () => {
@@ -257,7 +260,7 @@ export const UserComponent = (props: any) => {
     }, [props._id])
   const setDocumentAction = async (action: string) => {
     const { currentcmpn, deleteDocument, saveDocument, docnos, users, addusers } = props;
-    let currentDoc = { ...currentdocument }
+    let currentDoc:any = { ...currentdocument }
     currentDoc.doctype = doctypes.USER;
     currentDoc.doctypetext="User"
     const { doctypetext, docnoprefix, doctype } = currentDoc;
@@ -389,6 +392,8 @@ export const UserComponent = (props: any) => {
      
   }else
   return (
+    <>
+    <Loader/>
     <div className="container">
       <div className="grid">
         <div className="row">
@@ -473,7 +478,10 @@ export const UserComponent = (props: any) => {
                      handlesnackbarclose={closeSnackBar}
                      snackbartext={documentstatus.snackbartext}
                     />
+                    
     </div>
+    <AppbarBottom/>
+    </>
   )
 }
 

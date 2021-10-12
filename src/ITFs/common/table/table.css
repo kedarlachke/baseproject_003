@@ -86,11 +86,11 @@ td{
 }
 
 .table-button.danger {
-    background: #E74C3C;
+    background: #FF2E63;
 }   
 
 .table-button.submit {       
-    background: #4E9CAF;         
+    background: #00ADB5;         
 }   
    
 .table-button{
@@ -114,12 +114,13 @@ tr {
 }
 
 thead tr td {
-    background-color: #4E9CAF;
-    color: #f0f0f0;
+    background-color: #393E46;
+    color: #00ADB5;
+    padding: 10px;
 }
 
 tr:nth-child(even) {
-    background-color: var(--defaultFocus-color);
+    background-color: #EEEEEE;
 }
 
 tr:hover {

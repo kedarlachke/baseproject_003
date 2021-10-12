@@ -139,13 +139,13 @@
   .grid .row .col-4 {
     display: flex;
     flex-flow: column;
-    width: calc((100% / 12 - 1px) * 4);
+    width: calc((100% / 12 - 1px) * 6);
   }
   .grid .row .col-8,
   .grid .row .col-6 {
     display: flex;
     flex-flow: column;
-    width: 100%;
+    width: calc((100% / 12 - 1px) * 12);
   }
 }
 
