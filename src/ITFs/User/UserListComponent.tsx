@@ -4,7 +4,8 @@ import AddFabButton from '../common/Fab/AddFabButton'
 import Table from '../common/table/Table'
 import Column from '../common/table/Column'
 import { Redirect, withRouter } from 'react-router-dom'
-
+import {addusers} from '../Redux/ActionCreators'
+import { getUsers1 } from '../Redux/reducers/actions'
 export const UserListComponent = (props: any) => {
   const [docno, setDocno] = useState('NO-ID')
   const [redirect, setRedirect] = useState(false)
@@ -16,7 +17,22 @@ export const UserListComponent = (props: any) => {
     setDocno('')
     setRedirect(redirect)
   }
-  const tabledata = useMemo(() => [...props.users], [])
+
+  useEffect(() => {
+    getUsers1({applicationid:'15001500',client:'45004500',lang: 'EN'}).then((users:any)=>{
+      if(props){
+      props.addusers(users)
+    }
+    });
+    return () => {
+      
+    }
+  }, [])
+  let tabledata:any = []
+  if(props.users){
+    tabledata =useMemo(() => [...props.users], [props.users])
+}
+
   if (redirect) {
     let redirectpath = '/useredit?_id=' + docno
     return <Redirect push to={redirectpath} />
@@ -30,6 +46,7 @@ export const UserListComponent = (props: any) => {
                 data={tabledata}
                 defaultNoOfRows={10}
                 actionColWidth={150}
+                headerText="User List"
                 actions={[
                   {
                     action: (id: any) => {
@@ -59,11 +76,11 @@ export const UserListComponent = (props: any) => {
               >
                 <Column
                   fieldname="firstname"
-                  columnname="Project Title"
+                  columnname="First Name"
                 ></Column>
 
-                <Column fieldname="lastname" columnname="Status"></Column>
-                <Column fieldname="username" columnname="Department"></Column>
+                <Column fieldname="lastname" columnname="Last Name"></Column>
+                <Column fieldname="username" columnname="User Name"></Column>
               </Table>
             </div>
           </div>
@@ -79,8 +96,11 @@ const mapStateToProps = (state: any) => ({
   companies: state.documents.companies,
 })
 
-const mapDispatchToProps = (dispatch: any) => {}
-
+const mapdispatcherToProp=(dispatch:any)=>{
+  return {
+    addusers :(users:any)=> dispatch(addusers(users))
+  }
+}
 export default withRouter(
-  connect(mapStateToProps, mapDispatchToProps)(UserListComponent)
+  connect(mapStateToProps,mapdispatcherToProp)(UserListComponent)
 )

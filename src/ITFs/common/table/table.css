@@ -9,18 +9,20 @@ thead tr{
 
 thead td{
     font-weight: 700;
+    border: 1px solid var(--quarterly-color)
 }
 td{
     padding:.1rem 1rem;
     font-size: .9rem;
-    color: #222;
+    color: var(--secondary-color);
+    border: 1px solid var(--quarterly-color)
 }
 .pagination{
     display: flex;
     width: 100%;
     justify-content: center;
-    border-bottom: 1px solid #e0e0e0;
-    border-top: 1px solid #e0e0e0;
+    border-bottom: 1px solid var(--quarterly-color);
+    border-top: 1px solid var(--quarterly-color);
     padding: 7px;
 }
 
@@ -48,6 +50,8 @@ td{
     text-align: center;
     font-size: 18px;
     margin: 2px;
+    color:var(--secondary-color);
+    background:(--quarterly-color)
 }
 
 .pageination-section{
@@ -83,6 +87,7 @@ td{
     margin-top: auto;
     margin-bottom: auto;
     margin-left: 1rem;
+    color: var(--secondary-color);
 }
 
 .table-button.danger {
@@ -98,7 +103,7 @@ td{
     padding: 7px;
     text-align: center;
     border-radius: 5px;
-    color: white;
+    color: var(--quarterly-color);
     width: 40px; 
     margin: 2px; 
     cursor: pointer;
@@ -110,19 +115,31 @@ td{
 }    
 
 tr {
-    border: 1px solid #e0e0e0;
+    border: 1px solid (--quarterly-color);
 }
 
 thead tr td {
-    background-color: #393E46;
-    color: #00ADB5;
+    background-color: var(--secondary-color);
+    color: var(--quarterly-color);
     padding: 10px;
 }
 
-tr:nth-child(even) {
-    background-color: #EEEEEE;
-}
+/* tr:nth-child(even) {
+    background-color: var(--quarterly-color);
+} */
 
 tr:hover {
     background: #e7f6fa;
+}
+
+.card-header .table-header-text {
+display: flex;
+flex-direction: row;
+justify-content: space-between;
+}
+
+.card-header .table-header-text span{
+    font-size: 14px;
+    
+    padding: .4rem 0 0 1rem;
 }

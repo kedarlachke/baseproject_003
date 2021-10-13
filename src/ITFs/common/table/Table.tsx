@@ -4,7 +4,7 @@ import ColumnHead from './ColumnHead'
 import {Pagination} from './Pagination';
 import SMIconButton from './SMIconButton';
 function Table(props: any) {
-    let { data,actions,actionColWidth } = props
+    let { data,actions,actionColWidth,headerText} = props
     const [selectedColumn, setSelectedColumn] = useState("");
     const [order, setOrder] = useState("");
     const [activePage, setActivePage] = useState(1);
@@ -65,13 +65,11 @@ function Table(props: any) {
         
             {/* {renderChildren(props.children)} */}
             <div className="projects">
-
-                {selectedColumn}
                 <div className="card">
                     <div className="card-header">
-                        
-                        <h3>Recent Project({data.length})</h3>
-    
+                        <div className="table-header-text">
+                            <h3>{headerText}</h3><span>({data.length})</span>
+                        </div>
                         <div><input placeholder="search" style={{height:'40px',fontSize:"16px"}} onChange={(e)=>{globalSearch(e.target.value)}}/><i className="fas fa-times"/><i className="fas fa-search"/></div>
                         
                         

@@ -12,6 +12,7 @@ import SignUpUsernameJWT from '../../../mutations/signUpUsernameJWT';
 
 import CurrentUser from '../../../queries/CurrentUser';
 import CurrentUserJWT from '../../../queries/CurrentUserJWT';
+import usersQuery from '../../../queries/usersQuery';
 
 
 import {execGql,execGql_xx} from '../../../gqlclientconfig';
@@ -52,6 +53,31 @@ return function(dispatch:any){
 
 }
 
+}
+
+
+export async function getUsers1(values:any) {
+  var result:any = '', errorMessage = '', errors = new Array();
+  try {
+      result = await execGql('query', usersQuery, values)
+  }
+  catch (err:any) {
+      errors = err.errorsGql;
+      errorMessage = err.errorMessageGql;
+      console.log({ "errors": errors, "errorMessage": errorMessage })
+      // return callback({"errors":errors,"errorMessage":errorMessage},'' );
+  }
+  if (!result) {
+
+      console.log({ "errors": [], "errorMessage": 'No errors and results from GQL' })
+      return [];
+
+      // return callback({"errors":[],"errorMessage":'No errors and results from GQL'} ,'');
+  }
+  else {
+      //return result.data;
+      return result.data.users;
+  }
 }
 
 
@@ -189,7 +215,7 @@ export async function  checkCurrentUsername(callback:any) {
   {
       result= await execGql('query',CurrentUser,{})
   }
-  catch(err)
+  catch(err:any)
    {  
       errors = err.errorsGql;
       errorMessage = err.errorMessageGql;   
@@ -216,7 +242,7 @@ export async function  checkCurrentUsernameJWT(callback:any) {
       console.log('gql result');
       console.log(result);
   }
-  catch(err)
+  catch(err:any)
    {  
     console.log('gql err');
     console.log(err);

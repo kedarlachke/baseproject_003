@@ -9,8 +9,9 @@ export default gql`
     lang
     applicationid
     userauthorisations
-    status
-    
+    status,
+    firstname,
+    lastname
   }
   }
 `;

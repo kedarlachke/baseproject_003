@@ -1,7 +1,8 @@
 import React, { useContext } from 'react'
 import usering from '../../../img/2.jpg'
-export default function Header(props: any) {
-  const { title } = props
+import { connect } from 'react-redux'
+export  function Header(props: any) {
+  const { title,authuser } = props
   return (
     <header>
       <h2>
@@ -17,10 +18,20 @@ export default function Header(props: any) {
       <div className="user-wrapper">
         <img src={usering} alt="" width="40px" height="40px" />
         <div>
-          <h4>Kedar Lachke</h4>
+          <h4>{authuser?.firstname ? authuser.firstname +" "+ authuser.lastname:authuser.username}</h4>
           <small>super admin</small>
         </div>
       </div>
     </header>
   )
 }
+
+
+const mapStateToProps = (state: any) => ({
+  authuser:state.auth.authuser
+})
+
+
+
+export default 
+  connect(mapStateToProps)(Header)
