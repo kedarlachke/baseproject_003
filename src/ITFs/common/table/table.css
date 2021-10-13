@@ -91,11 +91,11 @@ td{
 }
 
 .table-button.danger {
-    background: #FF2E63;
+    color: #FF5C58;
 }   
 
 .table-button.submit {       
-    background: #00ADB5;         
+    color: var(--third-color);         
 }   
    
 .table-button{

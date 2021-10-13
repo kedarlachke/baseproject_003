@@ -1,7 +1,7 @@
 import React from 'react'
 import './modal.css'
 function Modal({open,handleno,handleyes,dailogtext,dailogtitle}: any) {
-    console.log("modal--->",open,handleno,handleyes,dailogtext,dailogtitle)
+    
     if(open){
     return (
         <>
@@ -13,7 +13,7 @@ function Modal({open,handleno,handleyes,dailogtext,dailogtitle}: any) {
                 <div className="content">
                     <div className="header">
                         <h2>{dailogtitle}</h2>
-                        <label htmlFor="click" className="fas fa-times"></label>
+                        <label htmlFor="click" className="fas fa-times" onClick={()=>handleno()}></label>
                     </div>
                     <label htmlFor="click" className="fas fa-check"></label>
                     <p>{dailogtext}</p>

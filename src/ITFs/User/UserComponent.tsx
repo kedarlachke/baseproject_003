@@ -277,7 +277,7 @@ export const UserComponent = (props: any) => {
     let docstatus = {...documentstatus}
     switch (action_type) {
       case 'delete':
-        
+        docstatus = {...documentstatus}
         docstatus.action= true;
         docstatus.dailogtitle= doctypetext + ' Deletion';
         docstatus.dailogtext= 'Delete ' + doctypetext + '?'
@@ -296,11 +296,11 @@ export const UserComponent = (props: any) => {
             docstatus.snackbarseverity='success';
             docstatus.snackbartext= doctypetext + ' Deleted'
 
-            setDocumentstatus(docstatus)
+            setDocumentstatus({...docstatus})
         }
         docstatus.noaction= () => {
           docstatus.action = false;
-          setDocumentstatus(docstatus)
+          setDocumentstatus({...docstatus})
         }
         setDocumentstatus(docstatus);
         break;

@@ -45,7 +45,7 @@ export const UserListComponent = (props: any) => {
               <Table
                 data={tabledata}
                 defaultNoOfRows={10}
-                actionColWidth={150}
+                actionColWidth={80}
                 headerText="User List"
                 actions={[
                   {
@@ -63,15 +63,7 @@ export const UserListComponent = (props: any) => {
                     icon: 'fas fa-trash-alt',
                     text: 'delete',
                     className: 'table-button danger',
-                  },
-                  {
-                    action: (id: any) => {
-                      alert(id)
-                    },
-                    icon: 'fas fa-trash-alt',
-                    text: 'delete',
-                    className: 'table-button danger',
-                  },
+                  }
                 ]}
               >
                 <Column
